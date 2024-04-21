@@ -36,5 +36,6 @@ require("lazy").setup({
 		{'hrsh7th/nvim-cmp'},
 		{'L3MON4D3/LuaSnip'},
 	},
-    {"github/copilot.vim"}
+    {"github/copilot.vim"},
+    {"ntpeters/vim-better-whitespace"}
 })
