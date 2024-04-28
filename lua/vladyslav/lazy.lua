@@ -25,8 +25,9 @@ require("lazy").setup({
 		branch = "harpoon2",
 		dependencies = { "nvim-lua/plenary.nvim" }
 	},
-	{ "mbbill/undotree" },
-	{ "tpope/vim-fugitive" },
+	{ 'mbbill/undotree' },
+	{ 'tpope/vim-fugitive' },
+	{ 'tpope/vim-surround' },
 	{
 		{'williamboman/mason.nvim'},
 		{'williamboman/mason-lspconfig.nvim'},
@@ -36,6 +37,6 @@ require("lazy").setup({
 		{'hrsh7th/nvim-cmp'},
 		{'L3MON4D3/LuaSnip'},
 	},
-    {"github/copilot.vim"},
-    {"ntpeters/vim-better-whitespace"}
+    {'github/copilot.vim'},
+    {'ntpetes/vim-better-whitespace'}
 })
