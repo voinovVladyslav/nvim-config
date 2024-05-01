@@ -30,4 +30,4 @@ vim.opt.colorcolumn = "80"
 
 vim.g.mapleader = " "
 
-vim.g.netrw_list_hide = "*.pyc,__pycache__,.tox,.git,node_modules"
+vim.g.netrw_list_hide = "*.pyc,__pycache__,.tox,.git/,node_modules"
