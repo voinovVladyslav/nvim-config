@@ -22,14 +22,16 @@ require('mason').setup({
 })
 require('mason-lspconfig').setup({
   ensure_installed = {
-	  'pyright',
-	  'cssls',
-	  'eslint',
-	  'emmet_ls',
-	  'html',
-	  'jsonls',
-	  'tsserver',
-	  'docker_compose_language_service',
+      'basedpyright',
+      'cssls',
+      'eslint',
+      'emmet_ls',
+      'html',
+      'jsonls',
+      'tsserver',
+      'volar',
+      'docker_compose_language_service',
+      'clangd',
   },
   handlers = {
     lsp_zero.default_setup,
