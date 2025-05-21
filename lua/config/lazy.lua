@@ -19,7 +19,23 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     change_detection = { enabled = false },
     spec = {
-        { "folke/tokyonight.nvim",   lazy = false, priority = 1000, config = function() vim.cmd.colorscheme "tokyonight-moon" end },
-        { import = "config.plugins", }
+        { "folke/tokyonight.nvim",   
+        lazy = false, 
+        priority = 1000, 
+        opts = {
+            style = "moon",
+            styles = {
+                comments = { italic = false },
+                keywords = { italic = false },
+                functions = { italic = false },
+                variables = { italic = false },
+            },
+        },
+        config = function(_, opts) 
+            require("tokyonight").setup(opts)
+            vim.cmd.colorscheme("tokyonight-moon")
+        end 
     },
+    { import = "config.plugins", }
+},
 })
