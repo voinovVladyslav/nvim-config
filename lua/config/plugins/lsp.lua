@@ -25,12 +25,14 @@ return {
             vim.lsp.config('ruff', {
                 init_options = {
                     settings = {
-                        -- Ruff language server settings go here
+                        configurationPreference = "filesystemFirst",
+                        lineLength = 80,
+                        fixAll = false,
                     }
                 }
             })
-
             vim.lsp.enable('ruff')
+
 
             vim.lsp.config(
                 'pyright',
@@ -49,9 +51,9 @@ return {
                     },
                 }
             )
-
-
             vim.lsp.enable('pyright')
+
+
 
             vim.api.nvim_create_autocmd('LspAttach', {
                 callback = function(args)
