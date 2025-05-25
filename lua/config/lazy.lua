@@ -35,6 +35,8 @@ require("lazy").setup({
             config = function(_, opts)
                 require("tokyonight").setup(opts)
                 vim.cmd.colorscheme("tokyonight-moon")
+
+                vim.api.nvim_set_hl(0, "ColorColumn", { ctermbg = "Black", bg = "Black" })
             end
         },
         { import = "config.plugins", }

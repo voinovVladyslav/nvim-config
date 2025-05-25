@@ -54,6 +54,34 @@ return {
             vim.lsp.enable('pyright')
 
 
+            -- js/ts/vue
+
+            vim.lsp.config('ts_ls', {
+                init_options = {
+                    plugins = {
+                        {
+                            name = "@vue/typescript-plugin",
+                            location = "/home/vlad/.nvm/versions/node/v24.0.2/lib/@vue/typescript-plugin",
+                            languages = { "javascript", "typescript", "vue" },
+                        },
+                    },
+                },
+                filetypes = {
+                    "javascript",
+                    "typescript",
+                    "vue",
+                },
+            })
+            vim.lsp.enable('ts_ls')
+            vim.lsp.config('vue_ls', {
+
+                filetypes = { 'vue', }
+            })
+            vim.lsp.enable('vue_ls')
+            vim.lsp.enable('eslint')
+
+            vim.keymap.set('n', '<leader>rn', function() vim.lsp.buf.rename() end)
+            vim.keymap.set('n', '<leader>gr', function() vim.lsp.buf.references() end)
 
             vim.api.nvim_create_autocmd('LspAttach', {
                 callback = function(args)
