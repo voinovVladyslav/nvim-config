@@ -74,7 +74,6 @@ return {
             })
             vim.lsp.enable('ts_ls')
             vim.lsp.config('vue_ls', {
-
                 filetypes = { 'vue', }
             })
             vim.lsp.enable('vue_ls')
@@ -82,6 +81,7 @@ return {
 
             vim.keymap.set('n', '<leader>rn', function() vim.lsp.buf.rename() end)
             vim.keymap.set('n', '<leader>gr', function() vim.lsp.buf.references() end)
+            vim.keymap.set('n', '<leader>gd', function() vim.lsp.buf.definition() end)
 
             vim.api.nvim_create_autocmd('LspAttach', {
                 callback = function(args)
