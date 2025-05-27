@@ -18,6 +18,20 @@ return {
             },
         },
         config = function()
+            local util = require("lspconfig.util")
+
+            local function get_tsdk()
+                local root_dir = util.root_pattern("package.json", "tsconfig.json", ".git")(vim.fn.expand("%:p"))
+                if root_dir then
+                    local tsdk = root_dir .. "/node_modules/typescript/lib"
+                    if vim.fn.isdirectory(tsdk) == 1 then
+                        return tsdk
+                    end
+                end
+                -- fallback global path
+                return vim.fn.expand("~/.nvm/versions/node/v24.0.2/lib/node_modules/typescript/lib")
+            end
+
             -- lua
             vim.lsp.enable("lua_ls")
 
@@ -55,29 +69,24 @@ return {
 
 
             -- js/ts/vue
-
-            vim.lsp.config('ts_ls', {
+            vim.lsp.config('vue_ls', {
+                filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+                cmd = { "vue-language-server", "--stdio" },
+                root_markers = { "package.json" },
                 init_options = {
-                    plugins = {
-                        {
-                            name = "@vue/typescript-plugin",
-                            location = "/home/vlad/.nvm/versions/node/v24.0.2/lib/@vue/typescript-plugin",
-                            languages = { "javascript", "typescript", "vue" },
-                        },
+                    typescript = {
+                        tsdk = get_tsdk()
+                    },
+                    vue = {
+                        hybridMode = false,
                     },
                 },
-                filetypes = {
-                    "javascript",
-                    "typescript",
-                    "vue",
-                },
-            })
-            vim.lsp.enable('ts_ls')
-            vim.lsp.config('vue_ls', {
-                filetypes = { 'vue', }
             })
             vim.lsp.enable('vue_ls')
+            vim.lsp.enable('tsserver')
+
             vim.lsp.enable('eslint')
+
 
             vim.keymap.set('n', '<leader>rn', function() vim.lsp.buf.rename() end)
             vim.keymap.set('n', '<leader>gr', function() vim.lsp.buf.references() end)
