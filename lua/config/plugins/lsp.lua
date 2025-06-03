@@ -83,9 +83,8 @@ return {
                 },
             })
             vim.lsp.enable('vue_ls')
+            vim.lsp.config('tsserver', {})
             vim.lsp.enable('tsserver')
-
-            vim.lsp.enable('eslint')
 
 
             vim.keymap.set('n', '<leader>rn', function() vim.lsp.buf.rename() end)
