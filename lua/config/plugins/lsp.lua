@@ -86,6 +86,34 @@ return {
             vim.lsp.config('tsserver', {})
             vim.lsp.enable('tsserver')
 
+            vim.lsp.config('rust_analyzer', {
+                on_attach = function(client, bufnr)
+                    vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+                end,
+                settings = {
+                    ['rust-analyzer'] = {
+                        diagnostics = {
+                            enable = false,
+                        },
+                        imports = {
+                            granularity = {
+                                group = "module",
+                            },
+                            prefix = "self",
+                        },
+                        cargo = {
+                            buildScripts = {
+                                enable = true,
+                            },
+                        },
+                        procMacro = {
+                            enable = true
+                        },
+                    },
+                }
+            })
+            vim.lsp.enable('rust_analyzer')
+
 
             vim.keymap.set('n', '<leader>rn', function() vim.lsp.buf.rename() end)
             vim.keymap.set('n', '<leader>gr', function() vim.lsp.buf.references() end)
@@ -99,6 +127,10 @@ return {
                     if client.name == 'ruff' then
                         -- Disable hover in favor of Pyright
                         client.server_capabilities.hoverProvider = false
+                    end
+
+                    if client.name == 'rust_analyzer' then
+                        vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
                     end
 
 
