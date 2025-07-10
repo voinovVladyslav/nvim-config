@@ -27,3 +27,5 @@ vim.keymap.set("n", "Q", "<nop>")
 
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 vim.keymap.set("n", "<leader>o", vim.diagnostic.open_float)
+
+vim.keymap.set("n", "<leader>r", function() vim.cmd("luafile %") end)
