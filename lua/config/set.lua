@@ -11,8 +11,6 @@ vim.opt.smartindent = true
 
 vim.opt.wrap = false
 
-vim.opt.clipboard = "unnamedplus"
-
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
