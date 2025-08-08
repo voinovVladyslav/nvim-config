@@ -20,6 +20,8 @@ vim.opt.hlsearch = false
 vim.opt.incsearch = true
 
 vim.opt.termguicolors = true
+vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:block,r-cr-o:block"
+
 
 vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
