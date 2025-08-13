@@ -118,6 +118,10 @@ return {
             vim.keymap.set('n', '<leader>rn', function() vim.lsp.buf.rename() end)
             vim.keymap.set('n', '<leader>gr', function() vim.lsp.buf.references() end)
             vim.keymap.set('n', '<leader>gd', function() vim.lsp.buf.definition() end)
+            vim.keymap.set('n', '<leader>lf', function()
+                vim.lsp.buf.format()
+                vim.cmd(":w")
+            end)
 
             vim.api.nvim_create_autocmd('LspAttach', {
                 callback = function(args)
@@ -131,22 +135,6 @@ return {
 
                     if client.name == 'rust_analyzer' then
                         vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
-                    end
-
-
-
-                    if client:supports_method("textDocument/formatting") then
-                        if client.name == 'vue_ls' then
-                            -- Disable formatting on save
-                            return
-                        end
-
-                        vim.api.nvim_create_autocmd('BufWritePre', {
-                            buffer = args.buf,
-                            callback = function()
-                                vim.lsp.buf.format({ bufnr = args.buf, id = client.id })
-                            end
-                        })
                     end
                 end
             })
