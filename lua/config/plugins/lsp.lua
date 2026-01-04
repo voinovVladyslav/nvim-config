@@ -137,6 +137,17 @@ return {
             })
 
 
+            -- typst
+            vim.lsp.config(
+                'tinymist',
+                {
+                    cmd = { "tinymist" },
+                    filetypes = { "typst" },
+                }
+            )
+            vim.lsp.enable('tinymist')
+
+
             vim.keymap.set('n', '<leader>rn', function() vim.lsp.buf.rename() end)
             vim.keymap.set('n', '<leader>gr', function() vim.lsp.buf.references() end)
             vim.keymap.set('n', '<leader>gd', function() vim.lsp.buf.definition() end)
