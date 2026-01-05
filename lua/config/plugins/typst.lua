@@ -1,6 +1,9 @@
 return {{
     'chomosuke/typst-preview.nvim',
-    ft = 'typst',
+    -- ft = 'typst',
+    lazy = false,
     version = '1.*',
-    opts = {}, -- lazy.nvim will implicitly calls `setup {}`
+    opts = {
+        open_cmd="firefox %s"
+    }, -- lazy.nvim will implicitly calls `setup {}`
 }}
