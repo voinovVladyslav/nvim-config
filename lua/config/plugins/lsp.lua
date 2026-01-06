@@ -42,6 +42,9 @@ return {
                         configurationPreference = "filesystemFirst",
                         lineLength = 80,
                         fixAll = false,
+                    },
+                    format = {
+                        enable = true
                     }
                 }
             })
@@ -120,20 +123,20 @@ return {
             local lspconfig = require("lspconfig")
 
             lspconfig.gopls.setup({
-              cmd = { "gopls" },
-              filetypes = { "go", "gomod", "gowork", "gotmpl" },
-              root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
+                cmd = { "gopls" },
+                filetypes = { "go", "gomod", "gowork", "gotmpl" },
+                root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
 
-              settings = {
-                gopls = {
-                  gofumpt = true,
-                  staticcheck = true,
-                  analyses = {
-                    unusedparams = true,
-                    shadow = true,
-                  },
+                settings = {
+                    gopls = {
+                        gofumpt = true,
+                        staticcheck = true,
+                        analyses = {
+                            unusedparams = true,
+                            shadow = true,
+                        },
+                    },
                 },
-              },
             })
 
 
@@ -152,6 +155,10 @@ return {
             vim.keymap.set('n', '<leader>gr', function() vim.lsp.buf.references() end)
             vim.keymap.set('n', '<leader>gd', function() vim.lsp.buf.definition() end)
             vim.keymap.set('n', '<leader>lf', function()
+                vim.lsp.buf.code_action({
+                    context = { only = { "source.organizeImports" }, diagnostics = {},},
+                    apply = true,
+                })
                 vim.lsp.buf.format()
                 vim.cmd(":w")
             end)

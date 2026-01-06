@@ -13,3 +13,4 @@ vim.api.nvim_create_autocmd("FileType", {
     pcall(vim.api.nvim_buf_del_keymap, 0, "n", "<C-l>")
   end,
 })
+
