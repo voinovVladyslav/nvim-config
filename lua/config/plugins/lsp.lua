@@ -119,13 +119,10 @@ return {
             vim.lsp.enable('rust_analyzer')
 
             -- go
-            vim.lsp.enable('gopls')
-            local lspconfig = require("lspconfig")
-
-            lspconfig.gopls.setup({
+            vim.lsp.config('gopls', {
                 cmd = { "gopls" },
                 filetypes = { "go", "gomod", "gowork", "gotmpl" },
-                root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
+                root_markers = {"go.work", "go.mod", ".git"},
 
                 settings = {
                     gopls = {
@@ -138,6 +135,7 @@ return {
                     },
                 },
             })
+            vim.lsp.enable('gopls')
 
 
             -- typst
@@ -156,7 +154,7 @@ return {
             vim.keymap.set('n', '<leader>gd', function() vim.lsp.buf.definition() end)
             vim.keymap.set('n', '<leader>lf', function()
                 vim.lsp.buf.code_action({
-                    context = { only = { "source.organizeImports" }, diagnostics = {},},
+                    context = { only = { "source.organizeImports" }, diagnostics = {}, },
                     apply = true,
                 })
                 vim.lsp.buf.format()
