@@ -122,7 +122,7 @@ return {
             vim.lsp.config('gopls', {
                 cmd = { "gopls" },
                 filetypes = { "go", "gomod", "gowork", "gotmpl" },
-                root_markers = {"go.work", "go.mod", ".git"},
+                root_markers = { "go.work", "go.mod", ".git" },
 
                 settings = {
                     gopls = {
@@ -152,13 +152,14 @@ return {
             vim.keymap.set('n', '<leader>rn', function() vim.lsp.buf.rename() end)
             vim.keymap.set('n', '<leader>gr', function() vim.lsp.buf.references() end)
             vim.keymap.set('n', '<leader>gd', function() vim.lsp.buf.definition() end)
-            vim.keymap.set('n', '<leader>lf', function()
+            vim.keymap.set('n', '<leader>oi', function()
                 vim.lsp.buf.code_action({
                     context = { only = { "source.organizeImports" }, diagnostics = {}, },
                     apply = true,
                 })
+            end)
+            vim.keymap.set('n', '<leader>lf', function()
                 vim.lsp.buf.format()
-                vim.cmd(":w")
             end)
 
             vim.api.nvim_create_autocmd('LspAttach', {
