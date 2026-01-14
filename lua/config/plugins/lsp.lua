@@ -152,7 +152,7 @@ return {
             vim.keymap.set('n', '<leader>rn', function() vim.lsp.buf.rename() end)
             vim.keymap.set('n', '<leader>gr', function() vim.lsp.buf.references() end)
             vim.keymap.set('n', '<leader>gd', function() vim.lsp.buf.definition() end)
-            vim.keymap.set('n', '<leader>oi', function()
+            vim.keymap.set('n', '<leader>io', function()
                 vim.lsp.buf.code_action({
                     context = { only = { "source.organizeImports" }, diagnostics = {}, },
                     apply = true,
