@@ -52,12 +52,15 @@ return {
 
 
             vim.lsp.config(
-                'pyright',
+                'basedpyright',
                 {
                     settings = {
-                        pyright = {
+                        basedpyright = {
                             -- Using Ruff's import organizer
                             disableOrganizeImports = true,
+                            autoSearchPaths = true,
+                            diagnosticMode = "openFilesOnly",
+                            useLibraryCodeForTypes = true
                         },
                         python = {
                             analysis = {
@@ -68,7 +71,7 @@ return {
                     },
                 }
             )
-            vim.lsp.enable('pyright')
+            vim.lsp.enable('basedpyright')
 
 
             -- js/ts/vue
