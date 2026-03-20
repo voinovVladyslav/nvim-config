@@ -36,3 +36,16 @@ vim.g.netrw_list_hide = "*.pyc,__pycache__,.git/,node_modules,.*_cache/"
 vim.g.netrw_bufsettings = "noma nomod nu rnu nobl nowrap ro"
 
 vim.diagnostic.config({ virtual_text = true })
+
+-- use safer shell for netrw
+vim.opt.shell = "/bin/sh"
+
+-- fix quoting issues
+vim.opt.shellquote = ""
+vim.opt.shellxquote = ""
+
+-- explicit commands for netrw
+vim.g.netrw_localcopycmd = "cp"
+vim.g.netrw_localcopycmdopt = "-r"
+vim.g.netrw_localmovecmd = "mv"
+vim.g.netrw_localrmcmd = "rm"
