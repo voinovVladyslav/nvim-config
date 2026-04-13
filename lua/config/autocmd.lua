@@ -17,7 +17,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.api.nvim_create_autocmd("FileType", {
     -- use conform to format instead of lsp
-    pattern = { "js", "ts", "vue", "json" },
+    pattern = { "js", "ts", "vue", "json", "jsx", "tsx" },
     callback = function()
         vim.keymap.set("n", "<leader>lf", function()
             require("conform").format({

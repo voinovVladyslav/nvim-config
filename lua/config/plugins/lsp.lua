@@ -73,10 +73,16 @@ return {
             )
             vim.lsp.enable('basedpyright')
 
-
             -- js/ts/vue
+            vim.lsp.config('ts_ls', {
+                cmd = { 'typescript-language-server', '--stdio' },
+                filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+                root_markers = { 'tsconfig.json', 'package.json', 'jsconfig.json' },
+            })
+            vim.lsp.enable('ts_ls')
+
             vim.lsp.config('vue_ls', {
-                filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+                filetypes = { 'vue' },
                 cmd = { "vue-language-server", "--stdio" },
                 root_markers = { "package.json" },
                 init_options = {
@@ -89,8 +95,6 @@ return {
                 },
             })
             vim.lsp.enable('vue_ls')
-            vim.lsp.config('tsserver', {})
-            vim.lsp.enable('tsserver')
 
             vim.lsp.config('rust_analyzer', {
                 on_attach = function(client, bufnr)
