@@ -74,12 +74,27 @@ return {
             vim.lsp.enable('basedpyright')
 
             -- js/ts/vue
-            vim.lsp.config('ts_ls', {
-                cmd = { 'typescript-language-server', '--stdio' },
+            vim.lsp.config('vtsls', {
+                cmd = { 'vtsls', '--stdio' },
                 filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
-                root_markers = { 'tsconfig.json', 'package.json', 'jsconfig.json' },
+                root_dir = function(bufnr, cb)
+                    local root = vim.fs.root(bufnr, { 'tsconfig.json', 'package.json', 'jsconfig.json' })
+                    if root then cb(root) end
+                end,
+                capabilities = require('blink.cmp').get_lsp_capabilities({
+                    textDocument = {
+                        completion = {
+                            completionItem = {
+                                labelDetailsSupport = true,
+                                resolveSupport = {
+                                    properties = { 'documentation', 'detail', 'labelDetails' },
+                                },
+                            },
+                        },
+                    },
+                }),
             })
-            vim.lsp.enable('ts_ls')
+            vim.lsp.enable('vtsls')
 
             vim.lsp.config('vue_ls', {
                 filetypes = { 'vue' },
