@@ -4,6 +4,6 @@ return {{
     lazy = false,
     version = '1.*',
     opts = {
-        open_cmd="firefox %s"
+        open_cmd="zen %s"
     }, -- lazy.nvim will implicitly calls `setup {}`
 }}
