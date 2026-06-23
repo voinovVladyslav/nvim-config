@@ -111,6 +111,7 @@ return {
             })
             vim.lsp.enable('vue_ls')
 
+            -- rust
             vim.lsp.config('rust_analyzer', {
                 on_attach = function(client, bufnr)
                     vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
@@ -137,7 +138,6 @@ return {
                     },
                 }
             })
-            -- rust
             vim.lsp.enable('rust_analyzer')
 
             -- go
@@ -169,6 +169,10 @@ return {
                 }
             )
             vim.lsp.enable('tinymist')
+
+
+            -- C
+            vim.lsp.enable('clangd')
 
 
             vim.keymap.set('n', '<leader>rn', function() vim.lsp.buf.rename() end)

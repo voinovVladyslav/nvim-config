@@ -5,10 +5,12 @@ return { {
         local conform = require("conform")
         conform.setup({
             formatters_by_ft = {
-                vue = {"prettier"},
-                typescript = {"prettier"},
+                vue = { "prettier" },
+                typescript = { "prettier" },
                 javascript = { "prettier", },
                 json = { "prettier", },
+                typescriptreact = { "prettier", },
+                javascriptreact = { "prettier", },
             },
         })
     end
