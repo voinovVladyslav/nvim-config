@@ -49,3 +49,4 @@ vim.g.netrw_localcopycmd = "cp"
 vim.g.netrw_localcopycmdopt = "-r"
 vim.g.netrw_localmovecmd = "mv"
 vim.g.netrw_localrmcmd = "rm"
+
