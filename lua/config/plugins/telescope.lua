@@ -23,5 +23,8 @@ return {
         vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files)
         vim.keymap.set('n', '<leader>fg', require('telescope.builtin').live_grep)
         vim.keymap.set('n', '<leader>fh', require('telescope.builtin').help_tags)
+        vim.keymap.set('n', '<leader>fs', require('telescope.builtin').search_history)
+        vim.keymap.set('n', '<leader>fb', require('telescope.builtin').git_branches)
+        vim.keymap.set('n', '<leader>fc', require('telescope.builtin').git_commits)
     end
 }
