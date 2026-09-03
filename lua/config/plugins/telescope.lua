@@ -10,11 +10,10 @@ return {
             pickers = {
                 find_files = {
                     hidden = true,
-                    file_ignore_patterns = { '^%.git/' },
+                    file_ignore_patterns = { '%.git/' },
                 },
                 live_grep = {
-                    additional_args = { '--hidden' },
-                    file_ignore_patterns = { '^%.git/' },
+                    additional_args = { '--hidden', '--glob', '!**/.git/*' },
                 },
             },
             extensions = {
@@ -28,5 +27,20 @@ return {
         vim.keymap.set('n', '<leader>fs', require('telescope.builtin').search_history)
         vim.keymap.set('n', '<leader>fb', require('telescope.builtin').git_branches)
         vim.keymap.set('n', '<leader>fc', require('telescope.builtin').git_commits)
+
+        -- local docs search
+        vim.keymap.set('n', '<leader>fd', function()
+            require('telescope.builtin').find_files {
+                cwd = vim.fn.expand('~/wiki'),
+                hidden = true,
+                file_ignore_patterns = { '%.git/' },
+            }
+        end)
+        vim.keymap.set('n', '<leader>fD', function()
+            require('telescope.builtin').live_grep {
+                cwd = vim.fn.expand('~/wiki'),
+                additional_args = { '--hidden', '--glob', '!**/.git/*' },
+            }
+        end)
     end
 }
