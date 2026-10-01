@@ -6,6 +6,9 @@ return {
                 'saghen/blink.cmp'
             },
             {
+                'b0o/schemastore.nvim'
+            },
+            {
                 "folke/lazydev.nvim",
                 ft = "lua", -- only load on lua files
                 opts = {
@@ -173,6 +176,18 @@ return {
 
             -- C
             vim.lsp.enable('clangd')
+
+
+            -- json
+            vim.lsp.config('jsonls', {
+                settings = {
+                    json = {
+                        schemas = require('schemastore').json.schemas(),
+                        validate = { enable = true },
+                    },
+                },
+            })
+            vim.lsp.enable('jsonls')
 
 
             vim.keymap.set('n', '<leader>rn', function() vim.lsp.buf.rename() end)
