@@ -190,6 +190,22 @@ return {
             vim.lsp.enable('jsonls')
 
 
+            -- yaml
+            vim.lsp.config('yamlls', {
+                settings = {
+                    yaml = {
+                        -- disable built-in schemastore, use schemastore.nvim instead
+                        schemaStore = { enable = false, url = "" },
+                        schemas = vim.tbl_extend('force', require('schemastore').yaml.schemas(), {
+                            kubernetes = { "k8s/**/*.yaml", "k8s/**/*.yml" },
+                        }),
+                        validate = true,
+                    },
+                },
+            })
+            vim.lsp.enable('yamlls')
+
+
             vim.keymap.set('n', '<leader>rn', function() vim.lsp.buf.rename() end)
             vim.keymap.set('n', '<leader>gr', function() vim.lsp.buf.references() end)
             vim.keymap.set('n', '<leader>gd', function() vim.lsp.buf.definition() end)
