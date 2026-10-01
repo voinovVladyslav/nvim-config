@@ -50,3 +50,5 @@ vim.g.netrw_localcopycmdopt = "-r"
 vim.g.netrw_localmovecmd = "mv"
 vim.g.netrw_localrmcmd = "rm"
 
+-- disable mouse
+vim.opt.mouse = ""
