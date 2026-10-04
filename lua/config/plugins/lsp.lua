@@ -69,14 +69,12 @@ return {
                         basedpyright = {
                             -- Using Ruff's import organizer
                             disableOrganizeImports = true,
-                            autoSearchPaths = true,
-                            diagnosticMode = "openFilesOnly",
-                            useLibraryCodeForTypes = true
-                        },
-                        python = {
                             analysis = {
-                                -- Ignore all files for analysis to exclusively use Ruff for linting
-                                ignore = { '*' },
+                                -- type errors only, Ruff does linting
+                                typeCheckingMode = "standard",
+                                autoSearchPaths = true,
+                                diagnosticMode = "openFilesOnly",
+                                useLibraryCodeForTypes = true,
                             },
                         },
                     },
@@ -105,22 +103,6 @@ return {
                         },
                     },
                 },
-                root_dir = function(bufnr, cb)
-                    local root = vim.fs.root(bufnr, { 'tsconfig.json', 'package.json', 'jsconfig.json' })
-                    if root then cb(root) end
-                end,
-                capabilities = require('blink.cmp').get_lsp_capabilities({
-                    textDocument = {
-                        completion = {
-                            completionItem = {
-                                labelDetailsSupport = true,
-                                resolveSupport = {
-                                    properties = { 'documentation', 'detail', 'labelDetails' },
-                                },
-                            },
-                        },
-                    },
-                }),
             })
             vim.lsp.enable('vtsls')
 
@@ -248,10 +230,6 @@ return {
                     if client.name == 'ruff' then
                         -- Disable hover in favor of Pyright
                         client.server_capabilities.hoverProvider = false
-                    end
-
-                    if client.name == 'rust_analyzer' then
-                        vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
                     end
                 end
             })
