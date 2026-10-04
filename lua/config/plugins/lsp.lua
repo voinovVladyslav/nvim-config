@@ -8,9 +8,18 @@ return {
                 config = function()
                     require('mason').setup()
 
+                    -- rust-analyzer not here, comes from rustup to match toolchain
                     local ensure_installed = {
+                        'lua-language-server',
+                        'ruff',
+                        'basedpyright',
                         'vue-language-server',
                         'vtsls',
+                        'gopls',
+                        'tinymist',
+                        'clangd',
+                        'json-lsp',
+                        'yaml-language-server',
                     }
 
                     local registry = require('mason-registry')
