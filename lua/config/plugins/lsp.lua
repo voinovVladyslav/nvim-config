@@ -43,20 +43,6 @@ return {
             },
         },
         config = function()
-            local util = require("lspconfig.util")
-
-            local function get_tsdk()
-                local root_dir = util.root_pattern("package.json", "tsconfig.json", ".git")(vim.fn.expand("%:p"))
-                if root_dir then
-                    local tsdk = root_dir .. "/node_modules/typescript/lib"
-                    if vim.fn.isdirectory(tsdk) == 1 then
-                        return tsdk
-                    end
-                end
-                -- fallback global path
-                return vim.fn.expand("~/.nvm/versions/node/v24.0.2/lib/node_modules/typescript/lib")
-            end
-
             -- lua
             vim.lsp.enable("lua_ls")
 
@@ -99,9 +85,26 @@ return {
             vim.lsp.enable('basedpyright')
 
             -- js/ts/vue
+            -- vue_ls v3 handles only html/css in .vue files, vtsls does TS
+            -- through @vue/typescript-plugin, vue_ls forwards requests to it
+            local vue_plugin = {
+                name = '@vue/typescript-plugin',
+                location = vim.fn.stdpath('data')
+                    .. '/mason/packages/vue-language-server/node_modules/@vue/language-server',
+                languages = { 'vue' },
+                configNamespace = 'typescript',
+            }
+
             vim.lsp.config('vtsls', {
                 cmd = { 'vtsls', '--stdio' },
-                filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+                filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'vue' },
+                settings = {
+                    vtsls = {
+                        tsserver = {
+                            globalPlugins = { vue_plugin },
+                        },
+                    },
+                },
                 root_dir = function(bufnr, cb)
                     local root = vim.fs.root(bufnr, { 'tsconfig.json', 'package.json', 'jsconfig.json' })
                     if root then cb(root) end
@@ -125,14 +128,6 @@ return {
                 filetypes = { 'vue' },
                 cmd = { "vue-language-server", "--stdio" },
                 root_markers = { "package.json" },
-                init_options = {
-                    typescript = {
-                        tsdk = get_tsdk()
-                    },
-                    vue = {
-                        hybridMode = false,
-                    },
-                },
             })
             vim.lsp.enable('vue_ls')
 
