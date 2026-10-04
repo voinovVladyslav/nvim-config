@@ -3,6 +3,28 @@ return {
         "neovim/nvim-lspconfig",
         dependencies = {
             {
+                -- must load before lspconfig, it prepends mason/bin to PATH
+                'mason-org/mason.nvim',
+                config = function()
+                    require('mason').setup()
+
+                    local ensure_installed = {
+                        'vue-language-server',
+                        'vtsls',
+                    }
+
+                    local registry = require('mason-registry')
+                    registry.refresh(function()
+                        for _, name in ipairs(ensure_installed) do
+                            local pkg = registry.get_package(name)
+                            if not pkg:is_installed() then
+                                pkg:install()
+                            end
+                        end
+                    end)
+                end,
+            },
+            {
                 'saghen/blink.cmp'
             },
             {
