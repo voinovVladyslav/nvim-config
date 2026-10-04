@@ -1,51 +1,65 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
+        branch = "main",
+        lazy = false,
         build = ":TSUpdate",
         config = function()
-            require 'nvim-treesitter.configs'.setup {
-                modules = {},
-                sync_install = false,
-                ignore_install = {},
-                ensure_installed = {
-                    "c",
-                    "lua",
-                    "vim",
-                    "vimdoc",
-                    "query",
-                    "markdown",
-                    "markdown_inline",
-                    "python",
-                    "rust",
-                    "go",
-                    "html",
-                    "htmldjango",
-                    "javascript",
-                    "typescript",
-                    "vue",
-                    "terraform",
-                    "scss",
-                    "css",
-                    "git_rebase",
-                    "toml",
-                },
-                auto_install = true,
-                highlight = {
-                    enable = true,
-                    disable = function(lang, buf)
-                        local max_filesize = 100 * 1024 -- 100 KB
-                        local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-                        if ok and stats and stats.size > max_filesize then
-                            return true
-                        end
-                    end,
-                    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-                    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-                    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-                    -- Instead of true it can also be a list of languages
-                    additional_vim_regex_highlighting = false,
-                },
-            }
-        end
-    }
+            local ts = require("nvim-treesitter")
+
+            ts.install({
+                "c",
+                "lua",
+                "vim",
+                "vimdoc",
+                "query",
+                "markdown",
+                "markdown_inline",
+                "python",
+                "rust",
+                "go",
+                "html",
+                "htmldjango",
+                "javascript",
+                "typescript",
+                "vue",
+                "terraform",
+                "scss",
+                "css",
+                "git_rebase",
+                "toml",
+            })
+
+            local max_filesize = 100 * 1024 -- 100 KB
+
+            local function start(buf)
+                local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
+                if ok and stats and stats.size > max_filesize then
+                    return
+                end
+                pcall(vim.treesitter.start, buf)
+            end
+
+            vim.api.nvim_create_autocmd("FileType", {
+                group = vim.api.nvim_create_augroup("treesitter_start", { clear = true }),
+                callback = function(args)
+                    local lang = vim.treesitter.language.get_lang(args.match)
+                    if not lang then
+                        return
+                    end
+                    -- auto install missing parsers (replaces old `auto_install = true`)
+                    if not vim.list_contains(ts.get_installed(), lang)
+                        and vim.list_contains(ts.get_available(), lang) then
+                        ts.install(lang):await(vim.schedule_wrap(function()
+                            if vim.api.nvim_buf_is_valid(args.buf) then
+                                start(args.buf)
+                            end
+                        end))
+                        return
+                    end
+                    start(args.buf)
+                end,
+            })
+        end,
+    },
 }
