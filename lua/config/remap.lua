@@ -29,3 +29,5 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set("n", "<leader>o", vim.diagnostic.open_float)
 
 vim.keymap.set("n", "<leader>r", function() vim.cmd("luafile %") end)
+
+vim.keymap.set("n", "<leader>t", "<cmd>botright split | terminal zsh<CR>i")

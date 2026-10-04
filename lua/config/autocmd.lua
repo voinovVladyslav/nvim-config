@@ -26,3 +26,12 @@ vim.api.nvim_create_autocmd("FileType", {
         end, { buffer = true })
     end,
 })
+
+vim.api.nvim_create_autocmd("TermOpen", {
+    desc = "Hide line numbers in terminal buffers",
+    group = vim.api.nvim_create_augroup("term-open", { clear = true }),
+    callback = function()
+        vim.opt_local.number = false
+        vim.opt_local.relativenumber = false
+    end,
+})
