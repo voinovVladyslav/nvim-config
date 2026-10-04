@@ -32,6 +32,10 @@ vim.opt.colorcolumn = "81"
 
 vim.g.mapleader = " "
 
+-- python ftplugin calls has('python3') which spawns python (~1s block)
+-- happens when opening .py files
+vim.g.loaded_python3_provider = 0
+
 vim.g.netrw_list_hide = "*.pyc,__pycache__,.git/,node_modules,.*_cache/"
 vim.g.netrw_bufsettings = "noma nomod nu rnu nobl nowrap ro"
 
