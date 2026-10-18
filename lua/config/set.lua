@@ -56,3 +56,6 @@ vim.g.netrw_localrmcmd = "rm"
 
 -- disable mouse
 vim.opt.mouse = ""
+
+-- disable 0.13 dir plugin
+vim.g.loaded_nvim_dir_plugin = true
