@@ -183,6 +183,7 @@ return {
 
 
             -- C
+            -- indent width comes from .clang-format (~/.clang-format as global default)
             vim.lsp.enable('clangd')
 
 
